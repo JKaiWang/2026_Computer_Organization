@@ -1,0 +1,17 @@
+"mv t0 , %[slow]\n\t"
+"mv t1 , %[fast]\n\t"
+"WHILE:\n\t"
+"beq t1 ,x0 , END\n\t"
+"ld t1 , 8(t1)\n\t"
+"beq t1 , x0 ,END\n\t"
+"ld t0 , 8(t0)\n\t"
+"ld t1 , 8(t1)\n\t"
+"beq t0 , t1 , CORRECT\n\t"
+"j WHILE\n\t"
+"CORRECT:\n\t"
+"mv %[meet] , t0\n\t"
+"li %[result] ,1\n\t"
+"END:\n\t"
+:[meet] "+r"(meet) , [result] "+r"(result)
+:[slow] "r"(slow) , [fast] "r"(fast)
+:"t0" , "t1"
